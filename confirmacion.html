@@ -183,6 +183,33 @@
             font-size: 16px;
         }
 
+        .instructions {
+            display: none; /* Inicialmente ocultas */
+            margin-top: 20px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .instructions p {
+            margin: 5px 0; /* Espaciado entre instrucciones */
+        }
+
+        .recarga-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: white;
+            border: none;
+            border-radius: 30px;
+            color: black;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .recarga-button:hover {
+            background-color: #f0f0f0;
+        }
+
         @media (max-width: 600px) {
             .top-bar .slogan {
                 font-size: 20px;
@@ -202,26 +229,39 @@
         }
     </style>
     <script>
+        let datosCopiados = false;
+
         function copiarAlPortapapeles() {
             const nombre = document.getElementById('nombreCliente').innerText;
             const telefono = document.getElementById('telefonoCliente').innerText;
             const monto = document.getElementById('montoCliente').innerText;
-            const contraseña = document.getElementById('contraseñaCliente').innerText; // Obtener contraseña
+            const contraseña = document.getElementById('contraseñaCliente').innerText;
 
-            const textoCompleto = `Nombre: ${nombre}\nTeléfono: ${telefono}\nMonto: ${monto}\nContraseña: ${contraseña}`; // Incluir contraseña
+            const textoCompleto = `Nombre: ${nombre}\nTeléfono: ${telefono}\nMonto: ${monto}\nContraseña: ${contraseña}`;
             navigator.clipboard.writeText(textoCompleto).then(() => {
                 alert("Información copiada al portapapeles.");
+                datosCopiados = true; // Actualiza el estado
             });
+        }
+
+        function irARecarga() {
+            if (datosCopiados) {
+                window.location.href = 'recarga24hs.html';
+            } else {
+                alert("Por favor, copia los datos antes de acceder a Recarga 24hs.");
+            }
         }
 
         function mostrarInstrucciones() {
             document.querySelector(".overlay").style.display = "block";
             document.querySelector(".how-to-box").style.display = "block";
+            document.querySelector(".instructions").style.display = "block"; // Muestra las instrucciones
         }
 
         function cerrarInstrucciones() {
             document.querySelector(".overlay").style.display = "none";
             document.querySelector(".how-to-box").style.display = "none";
+            document.querySelector(".instructions").style.display = "none"; // Oculta las instrucciones
         }
 
         function recibirDatosDesdeLogin() {
@@ -229,7 +269,7 @@
             document.getElementById('nombreCliente').innerText = urlParams.get('nombre') || 'No especificado';
             document.getElementById('telefonoCliente').innerText = urlParams.get('telefono') || 'No especificado';
             document.getElementById('montoCliente').innerText = urlParams.get('monto') || 'No especificado';
-            document.getElementById('contraseñaCliente').innerText = urlParams.get('contrasena') || 'No especificado'; // Obtener contraseña
+            document.getElementById('contraseñaCliente').innerText = urlParams.get('contrasena') || 'No especificado';
         }
 
         window.onload = function() {
@@ -245,45 +285,40 @@
 
     <div class="menu-bar">
         <a href="https://wa.me/qr/APHRB33ZARANJ1" target="_blank">Contáctanos</a>
-        <a href="recarga24hs.html">Recarga 24hs</a>
+        <a href="#" onclick="irARecarga(); return false;">Recarga 24hs</a>
         <a href="promociones.html">Promociones y ofertas</a>
     </div>
 
     <video autoplay muted loop id="bg-video">
         <source src="fondo.mp4" type="video/mp4">
-        Tu navegador no soporta el elemento de video.
+        Tu navegador no soporta videos.
     </video>
 
     <div class="confirmation-container">
-        <h1 class="blink">20% BONUS EN TU PRIMERA CARGA</h1>
-        
+        <h2>¡Registro exitoso!</h2>
         <div class="client-data">
             <p>Nombre: <span id="nombreCliente"></span></p>
             <p>Teléfono: <span id="telefonoCliente"></span></p>
             <p>Monto: <span id="montoCliente"></span></p>
-            <p>Contraseña: <span id="contraseñaCliente"></span></p> <!-- Nueva línea para contraseña -->
-            <button onclick="copiarAlPortapapeles()">Copiar Todos los Datos</button>
-            <p style="font-size: 12px;">Esta opción queda guardada en tu portapapeles, envíaselo al cajero@.</p>
-            <button onclick="mostrarInstrucciones()">¿Cómo comenzar a jugar?</button>
+            <p>Contraseña: <span id="contraseñaCliente"></span></p>
+            <button class="step-button" onclick="copiarAlPortapapeles()">Copiar Todos los Datos</button>
+            <button class="step-button" onclick="mostrarInstrucciones()">¿Cómo comenzar a jugar?</button>
+               
+                    
+            <p>Para cargar fichas dirígete a Recarga 24hs.</p>
+            <button class="recarga-button" onclick="irARecarga()">Recarga 24hs</button>
         </div>
-
-        <p style="margin-top: 20px;">Para cargar fichas dirígete a <strong>Recarga 24hs</strong></p>
-        <button onclick="window.location.href='recarga24hs.html'" class="step-button">Recarga 24hs</button>
     </div>
 
     <div class="overlay" onclick="cerrarInstrucciones()"></div>
     <div class="how-to-box">
-        <h2>¿Cómo comenzar a jugar?</h2>
-        <p>Para empezar a jugar, simplemente sigue estos pasos:</p>
-        <ol>
-            <li>Una vez hayas copiado los datos, dirigite a <strong>Recarga 24hs</strong>.</li>
-
-            <li>Preciona el boton "recarga 24Hs"</li>
-
-            <li>Elegi el cajer@ que desees para poder comunicarte (recorda enviar la informacion copiada anteriormente)</li>
-            
-            <li>Comenza la conversacion y !!LISTO¡¡ es momento de generar ingresos</li>
-        </ol>
+        <h2>Cómo comenzar a jugar</h2>
+        <p>1. Una vez hayas copiado los datos, dirígete a Recarga 24hs.</p>
+        <p>2. Presiona el botón "Recarga 24Hs".</p>
+        <p>3. Elige el cajer@ que desees para poder comunicarte (recuerda enviar la información copiada anteriormente).</p>
+        <p>4. Comienza la conversación y ¡¡LISTO!! es momento de generar ingresos.</p>
+    </div>
+        
         <button onclick="cerrarInstrucciones()">Cerrar</button>
     </div>
 </body>
