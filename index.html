@@ -162,8 +162,13 @@
                 return;
             }
 
-            if (!nombre || !contrasena || !telefono || !monto || contrasena !== confirmarContrasena) {
-                alert("Por favor complete todos los campos y asegúrese de que las contraseñas coincidan.");
+            // Validación de contraseña: debe tener al menos 1 mayúscula y 4 números
+            const mayuscula = /[A-Z]/;
+            const cuatroNumeros = /\d.*\d.*\d.*\d/;
+
+            if (!nombre || !contrasena || !telefono || !monto || 
+                !mayuscula.test(contrasena) || !cuatroNumeros.test(contrasena)) {
+                alert("Por favor complete todos los campos y asegúrese de que la contraseña contenga al menos una letra mayúscula y cuatro números.");
                 return;
             }
 
@@ -210,7 +215,6 @@
         <form onsubmit="registrarUsuario(event)">
             <input type="text" id="username" name="username" placeholder="Usuario" required>
             <input type="password" id="password" name="password" placeholder="Contraseña" required>
-            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirmar Contraseña" required>
             <input type="text" id="telefono" name="telefono" placeholder="Teléfono" required>
             <input type="number" id="monto" name="monto" placeholder="Monto a Cargar" required>
             <input type="number" id="edad" name="edad" placeholder="Colocar edad" required>
@@ -237,17 +241,17 @@
             <div class="column">
                 <p><strong>Términos y Condiciones del Casino Virtual</strong></p>
                 <p>1. Aceptación de Términos: Al acceder y utilizar nuestros servicios, aceptas estos términos y condiciones.</p>
-                <p>2. Uso del Servicio: Te comprometes a usar el servicio de manera legal y responsable.</p>
-                <p>3. Registro: Debes proporcionar información precisa y actualizada al registrarte.</p>
-                <p>4. Prohibiciones: No se permite el uso fraudulento o engañoso del servicio.</p>
-                <p>5. Responsabilidad: No somos responsables de las pérdidas o daños derivados del uso del servicio.</p>
-                <p>6. Cambios: Nos reservamos el derecho de modificar estos términos en cualquier momento.</p>
-                <p>7. Legislación Aplicable: Estos términos se rigen por la legislación vigente.</p>
-                <p>8. Contacto: Puedes contactarnos para cualquier duda o consulta.</p>
-                <p>9. Confidencialidad: Nos comprometemos a proteger tu información personal.</p>
-                <p>10. Seguridad: Implementamos medidas de seguridad para proteger tus datos.</p>
-                <p>11. Suspensión: Nos reservamos el derecho de suspender o cancelar tu cuenta si violas estos términos.</p>
-                <p>12. Aceptación: Al usar el servicio, confirmas que has leído y aceptado estos términos.</p>
+                <p>2. Uso del Servicio: Debes ser mayor de 18 años para utilizar este servicio.</p>
+                <p>3. Responsabilidad: No somos responsables por pérdidas de fondos o daños.</p>
+                <p>4. Juego Responsable: Promovemos el juego responsable y el autoexclusión.</p>
+                <p>5. Cambios: Nos reservamos el derecho de modificar estos términos.</p>
+                <p>6. Ley Aplicable: Estos términos se rigen por las leyes del país donde se opera el servicio.</p>
+                <p>7. Información Personal: Protegemos tu información personal de acuerdo con nuestra política de privacidad.</p>
+                <p>8. Aceptación de Riesgos: Eres responsable por entender los riesgos asociados al juego.</p>
+                <p>9. Prohibiciones: No está permitido el uso fraudulento del servicio.</p>
+                <p>10. Soporte: Ofrecemos soporte a través de nuestro equipo de atención al cliente.</p>
+                <p>11. Suspensión de Cuentas: Nos reservamos el derecho a suspender cuentas que violen estos términos.</p>
+                <p>12. Contacto: Para consultas, contáctanos a través de nuestro correo electrónico.</p>
             </div>
             <button class="close-button" onclick="cerrarTerminos()">Cerrar</button>
         </div>
