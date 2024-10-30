@@ -139,11 +139,29 @@
             cursor: pointer;
             margin-top: 10px;
         }
+        /* Botón "Registrarse por WhatsApp" */
+        #whatsappButton {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #34C759; /* Verde manzana */
+            color: white;
+            padding: 15px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #whatsappButton:hover {
+            background-color: #28a745; /* Verde más oscuro en hover */
+        }
     </style>
     <script>
         function registrarUsuario(event) {
             event.preventDefault();
-
             const url = "https://script.google.com/macros/s/AKfycbxBhQdIGbubuKx-DH2YIs0NRXLwkKtUwdrTjOYxjE4y0l08-7EAW4cfJhdf6VlcPlWAwg/exec";
             const nombre = document.getElementById('username').value;
             const contrasena = document.getElementById('password').value;
@@ -162,7 +180,6 @@
                 return;
             }
 
-            // Validación de contraseña: debe tener al menos 1 mayúscula y 4 números
             const mayuscula = /[A-Z]/;
             const cuatroNumeros = /\d.*\d.*\d.*\d/;
 
@@ -198,6 +215,16 @@
         function cerrarMensajeEdad() {
             document.getElementById('mensajeEdad').style.display = 'none';
         }
+
+        window.onload = function() {
+            setTimeout(function() {
+                document.getElementById('whatsappButton').style.display = 'block';
+            }, 4000); // 4 segundos
+        };
+
+        function abrirWhatsApp() {
+            window.location.href = "https://wa.me/qr/7CLP3ZOUYYZKM1";
+        }
     </script>
 </head>
 <body>
@@ -226,8 +253,9 @@
             
             <button type="submit">Registrarse</button>
         </form>
-       
     </div>
+    
+    <button id="whatsappButton" onclick="abrirWhatsApp()">Tambien te registramos por WhatsApp</button>
 
     <div id="mensajeEdad" class="modal-edad">
         <div class="modal-content">
@@ -238,7 +266,7 @@
 
     <div id="modalTerminos" class="modal-terminos">
         <div class="modal-content">
-            <div class="column">
+            <div class="column">    
                 <p><strong>Términos y Condiciones del Casino Virtual</strong></p>
                 <p>1. Aceptación de Términos: Al acceder y utilizar nuestros servicios, aceptas estos términos y condiciones.</p>
                 <p>2. Uso del Servicio: Debes ser mayor de 18 años para utilizar este servicio.</p>
@@ -252,6 +280,7 @@
                 <p>10. Soporte: Ofrecemos soporte a través de nuestro equipo de atención al cliente.</p>
                 <p>11. Suspensión de Cuentas: Nos reservamos el derecho a suspender cuentas que violen estos términos.</p>
                 <p>12. Contacto: Para consultas, contáctanos a través de nuestro correo electrónico.</p>
+                <!-- Más términos y condiciones aquí -->
             </div>
             <button class="close-button" onclick="cerrarTerminos()">Cerrar</button>
         </div>
