@@ -15,20 +15,16 @@
             position: relative;
             opacity: 1;  
             transition: opacity 1s ease;  
-            background-color: black; /* Fondo negro detrás del video */
         }
 
         #bg-video {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            width: 60%; /* Ajusta el ancho del video */
-            height: auto; /* Mantiene la relación de aspecto */
+            top: 0;
+            left: 0;
+            width: 100%; /* Video ocupa toda la pantalla */
+            height: 100%; /* Video ocupa toda la pantalla */
             z-index: -1;
-            transform: translate(-50%, -50%); /* Centra el video */
             object-fit: cover; /* Asegura que el video cubra el área definida */
-            border-radius: 20px; /* Esquinas redondeadas */
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Sombra alrededor del video */
         }
 
         .confirmation-container, .top-bar, .menu-bar, .how-to-box {
@@ -41,7 +37,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro detrás del contenido */
             padding: 20px;
             border-radius: 20px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
@@ -267,7 +263,7 @@
             <p id="telefonoCliente">Teléfono: No especificado</p>
             <p id="contraseñaCliente">Contraseña: No especificado</p>
             <button onclick="irARecarga()">Recarga aquí las 24Hs</button>
-            <p style="font-size: 16px;">Tus datos de registro se copiaron en el portapapeles, envíaselo a nuestr@ cajer@ </p>
+            <p style="font-size: 16px;">¿No sabes cómo cargar fichas? <span style="color: yellow; cursor: pointer;" onclick="mostrarInstrucciones()">¡Haz clic aquí!</span></p>
         </div>
     </div>
 
@@ -275,11 +271,7 @@
 
     <div class="how-to-box">
         <h2>Instrucciones</h2>
-        <p>1. entra en RECARGA LAS 24Hs</p>
-        <p>2. elegir un cajero</p>
-        <p>3. mandar los datosd el registro que estan copiados en el PortaPapeles</p>
-        <p>4. carga las fichas y LISTO!!</p>
-        <p>A GENERAR INGRESOS   </p>
+        <p>Aquí están las instrucciones sobre cómo cargar fichas...</p>
         <button onclick="cerrarInstrucciones()">Cerrar</button>
     </div>
 </body>
