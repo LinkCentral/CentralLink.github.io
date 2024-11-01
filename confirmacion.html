@@ -11,10 +11,8 @@
             padding: 0;
             color: #fff;
             overflow: hidden;
-            height: 100vh;
+            height: 100vh; /* Asegura que el cuerpo ocupa toda la altura */
             position: relative;
-            opacity: 1;  
-            transition: opacity 1s ease;  
         }
 
         #bg-video {
@@ -25,11 +23,6 @@
             height: 100%; /* Video ocupa toda la pantalla */
             z-index: -1;
             object-fit: cover; /* Asegura que el video cubra el área definida */
-        }
-
-        .confirmation-container, .top-bar, .menu-bar, .how-to-box {
-            opacity: 1;  
-            transition: opacity 1s ease;
         }
 
         .confirmation-container {
@@ -146,8 +139,6 @@
             transform: translate(-50%, -50%);
             z-index: 20;
             text-align: left;
-            opacity: 1;
-            transition: opacity 1s ease;
         }
 
         /* Estilos para el título y subtítulo */
@@ -155,7 +146,6 @@
             font-family: 'DRAGON HUNTER', sans-serif;
             font-size: 36px;
             color: red;
-            animation: titilar 1s infinite;
             margin: 10px 0;
         }
 
@@ -163,14 +153,7 @@
             font-family: 'DRAGON HUNTER', sans-serif;
             font-size: 24px;
             color: red;
-            animation: titilar 1s infinite;
             margin: 10px 0;
-        }
-
-        @keyframes titilar {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
         }
 
         @media (max-width: 600px) {
@@ -199,12 +182,6 @@
 
             const textoCompleto = `Nombre: ${nombre}\nTeléfono: ${telefono}\nContraseña: ${contraseña}`;
             navigator.clipboard.writeText(textoCompleto).then(() => {
-                // Reproducir audio al cargar la página
-                const audio = document.getElementById('bg-audio');
-                audio.play().catch(error => {
-                    console.log("El audio no se pudo reproducir automáticamente:", error);
-                });
-                
                 // Redirigir a la página de recarga
                 window.location.href = 'recarga24hs.html';
             }).catch(err => {
@@ -232,6 +209,12 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             recibirDatosDesdeLogin();
+            
+            // Reproducir audio al cargar la página
+            const audio = document.getElementById('bg-audio');
+            audio.play().catch(error => {
+                console.log("El audio no se pudo reproducir automáticamente:", error);
+            });
         });
     </script>
 </head>
@@ -241,8 +224,8 @@
         Tu navegador no soporta videos.
     </video>
 
-    <audio id="bg-audio" autoplay loop>
-        <source src="slots.mp3" type="audio/mpeg">
+    <audio id="bg-audio" loop>
+        <source src="slot.mp3" type="audio/mpeg">
         Tu navegador no soporta audio.
     </audio>
 
@@ -263,7 +246,7 @@
             <p id="telefonoCliente">Teléfono: No especificado</p>
             <p id="contraseñaCliente">Contraseña: No especificado</p>
             <button onclick="irARecarga()">Recarga aquí las 24Hs</button>
-            <p style="font-size: 16px;">¿No sabes cómo cargar fichas? <span style="color: yellow; cursor: pointer;" onclick="mostrarInstrucciones()">¡Haz clic aquí!</span></p>
+            <p style="font-size: 16px;">Tus datos de registro se copiaron en el portapapeles, envíaselo a nuestr@ cajer@</p>
         </div>
     </div>
 
