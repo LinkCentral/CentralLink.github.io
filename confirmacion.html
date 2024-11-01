@@ -13,8 +13,8 @@
             overflow: hidden;
             height: 100vh;
             position: relative;
-            opacity: 1;
-            transition: opacity 1s ease;
+            opacity: 1;  /* Hacer visible el contenido */
+            transition: opacity 1s ease;  /* Transición de opacidad */
         }
 
         #bg-video {
@@ -26,9 +26,15 @@
             z-index: -1;
         }
 
+        .confirmation-container, .top-bar, .menu-bar, .how-to-box {
+            opacity: 1;  /* Hacer visible el contenido */
+            transition: opacity 1s ease;
+        }
+
         .confirmation-container {
+            display: block;
             background-color: rgba(0, 0, 0, 0.7);
-            padding: 20px;
+            padding: 40px;
             border-radius: 20px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
             width: 90%;
@@ -140,6 +146,7 @@
             transition: opacity 1s ease;
         }
 
+        /* Estilos para el título y subtítulo */
         .confirmation-title {
             font-family: 'DRAGON HUNTER', sans-serif;
             font-size: 36px;
@@ -162,7 +169,6 @@
             100% { opacity: 1; }
         }
 
-        /* Estilos responsivos */
         @media (max-width: 600px) {
             .top-bar .slogan {
                 font-size: 20px;
@@ -170,11 +176,6 @@
 
             .confirmation-container {
                 padding: 20px;
-                max-width: 90%;
-                margin: 20px auto; /* Añadir margen en móviles */
-                position: relative; /* Cambiar la posición en móviles */
-                top: auto; /* Eliminar el desplazamiento vertical en móviles */
-                transform: none; /* Eliminar la transformación */
             }
 
             .client-data {
@@ -183,17 +184,6 @@
 
             .client-data button {
                 font-size: 14px;
-                padding: 8px 16px; /* Ajustar tamaño del botón */
-            }
-        }
-
-        /* Estilos generales para pantallas grandes */
-        @media (min-width: 601px) {
-            .confirmation-container {
-                max-width: 350px;
-                position: relative;
-                top: 50%;
-                transform: translateY(-50%);
             }
         }
     </style>
@@ -230,15 +220,15 @@
             document.getElementById('contraseñaCliente').innerText = urlParams.get('contrasena') || 'No especificado';
         }
 
-        function reproducirAudio() {
-            const audio = document.getElementById('bg-audio');
-            audio.play().catch(error => {
-                console.log("El audio no se pudo reproducir:", error);
-            });
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
             recibirDatosDesdeLogin();
+
+            // Reproducir audio al cargar la página
+            const audio = document.getElementById('bg-audio');
+            audio.muted = false; // Asegúrate de que el audio no esté silenciado
+            audio.play().catch(error => {
+                console.log("El audio no se pudo reproducir automáticamente:", error);
+            });
         });
     </script>
 </head>
@@ -248,7 +238,7 @@
         Tu navegador no soporta videos.
     </video>
 
-    <audio id="bg-audio" loop>
+    <audio id="bg-audio" autoplay loop muted>
         <source src="slots.mp3" type="audio/mpeg">
         Tu navegador no soporta audio.
     </audio>
@@ -272,13 +262,13 @@
             <p id="contraseñaCliente">Contraseña: No especificado</p>
             <button onclick="irARecarga()">Recarga aquí las 24Hs</button>
             <p style="margin-top: 10px;">
-                Tus datos de registro se copiaron en el portapapeles, <strong>revisa tu whatsapp</strong>.
+                Tus datos de registro se copiaron en el portapapeles, <strong>envíaselo a nuestr@ cajer@</strong>
             </p>
-            <button onclick="reproducirAudio()">Reproducir Audio</button>
         </div>
     </div>
 
     <div class="overlay" onclick="cerrarInstrucciones()"></div>
+
     <div class="how-to-box">
         <h2>Instrucciones</h2>
         <p>Aquí están las instrucciones sobre cómo cargar fichas...</p>
