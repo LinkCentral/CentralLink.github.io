@@ -15,19 +15,20 @@
             position: relative;
             opacity: 1;  
             transition: opacity 1s ease;  
+            background-color: black; /* Fondo negro detrás del video */
         }
 
         #bg-video {
             position: fixed;
             top: 50%;
             left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
+            width: 60%; /* Ajusta el ancho del video */
+            height: auto; /* Mantiene la relación de aspecto */
             z-index: -1;
-            transform: translate(-50%, -50%);
-            object-fit: cover; /* Asegura que el video cubra toda la pantalla */
+            transform: translate(-50%, -50%); /* Centra el video */
+            object-fit: cover; /* Asegura que el video cubra el área definida */
+            border-radius: 20px; /* Esquinas redondeadas */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Sombra alrededor del video */
         }
 
         .confirmation-container, .top-bar, .menu-bar, .how-to-box {
@@ -67,12 +68,6 @@
             z-index: 10;
         }
 
-        .top-bar img {
-            height: 40px;
-            position: absolute;
-            left: 20px;
-        }
-
         .top-bar .slogan {
             font-family: 'DRAGON HUNTER', sans-serif;
             font-size: 24px;
@@ -88,18 +83,24 @@
             background-color: #000;
             padding: 10px 20px;
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between; /* Espacio entre el logo y el enlace */
             position: fixed;
             width: 100%;
             top: 50px;
             z-index: 9;
         }
 
+        .menu-bar img {
+            height: 40px;
+            margin-right: 20px; /* Espacio entre el logo y el texto */
+        }
+
         .menu-bar a {
             color: #fff;
             text-decoration: none;
             cursor: pointer;
-            margin-left: 20px;
+            margin-left: auto; /* Empuja el enlace a la derecha */
+            margin-left: 64px; /* Aumenta el espacio a la derecha */
         }
 
         .client-data {
@@ -250,13 +251,12 @@
     </audio>
 
     <div class="top-bar">
-        <img src="logo.png" alt="Logo">
         <div class="slogan">CON ZEUS ES GANANCIA</div>
     </div>
 
     <div class="menu-bar">
-        <a href="#" onclick="mostrarInstrucciones()">Cómo cargar fichas</a>
-        <a href="index.html">Inicio</a>
+        <img src="logo.png" alt="Logo">
+        <a href="#" onclick="mostrarInstrucciones()" style="margin-left: 64px;">Cómo cargar fichas</a>
     </div>
 
     <div class="confirmation-container">
@@ -267,9 +267,7 @@
             <p id="telefonoCliente">Teléfono: No especificado</p>
             <p id="contraseñaCliente">Contraseña: No especificado</p>
             <button onclick="irARecarga()">Recarga aquí las 24Hs</button>
-            <p style="margin-top: 10px;">
-                Tus datos de registro se copiaron en el portapapeles, <strong>envíaselo a nuestr@ cajer@</strong>
-            </p>
+            <p style="font-size: 16px;">Tus datos de registro se copiaron en el portapapeles, envíaselo a nuestr@ cajer@ </p>
         </div>
     </div>
 
@@ -277,7 +275,11 @@
 
     <div class="how-to-box">
         <h2>Instrucciones</h2>
-        <p>Aquí están las instrucciones sobre cómo cargar fichas...</p>
+        <p>1. entra en RECARGA LAS 24Hs</p>
+        <p>2. elegir un cajero</p>
+        <p>3. mandar los datosd el registro que estan copiados en el PortaPapeles</p>
+        <p>4. carga las fichas y LISTO!!</p>
+        <p>A GENERAR INGRESOS   </p>
         <button onclick="cerrarInstrucciones()">Cerrar</button>
     </div>
 </body>
