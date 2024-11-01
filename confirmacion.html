@@ -13,8 +13,8 @@
             overflow: hidden;
             height: 100vh;
             position: relative;
-            opacity: 1;  /* Hacer visible el contenido */
-            transition: opacity 1s ease;  /* Transición de opacidad */
+            opacity: 1;  
+            transition: opacity 1s ease;  
         }
 
         #bg-video {
@@ -27,14 +27,17 @@
         }
 
         .confirmation-container, .top-bar, .menu-bar, .how-to-box {
-            opacity: 1;  /* Hacer visible el contenido */
+            opacity: 1;  
             transition: opacity 1s ease;
         }
 
         .confirmation-container {
-            display: block;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             background-color: rgba(0, 0, 0, 0.7);
-            padding: 40px;
+            padding: 20px;
             border-radius: 20px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
             width: 90%;
@@ -175,7 +178,7 @@
             }
 
             .confirmation-container {
-                padding: 20px;
+                padding: 10px;
             }
 
             .client-data {
@@ -195,6 +198,12 @@
 
             const textoCompleto = `Nombre: ${nombre}\nTeléfono: ${telefono}\nContraseña: ${contraseña}`;
             navigator.clipboard.writeText(textoCompleto).then(() => {
+                // Reproducir audio al cargar la página
+                const audio = document.getElementById('bg-audio');
+                audio.play().catch(error => {
+                    console.log("El audio no se pudo reproducir automáticamente:", error);
+                });
+                
                 // Redirigir a la página de recarga
                 window.location.href = 'recarga24hs.html';
             }).catch(err => {
@@ -222,13 +231,6 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             recibirDatosDesdeLogin();
-
-            // Reproducir audio al cargar la página
-            const audio = document.getElementById('bg-audio');
-            audio.muted = false; // Asegúrate de que el audio no esté silenciado
-            audio.play().catch(error => {
-                console.log("El audio no se pudo reproducir automáticamente:", error);
-            });
         });
     </script>
 </head>
@@ -238,7 +240,7 @@
         Tu navegador no soporta videos.
     </video>
 
-    <audio id="bg-audio" autoplay loop muted>
+    <audio id="bg-audio" autoplay loop>
         <source src="slots.mp3" type="audio/mpeg">
         Tu navegador no soporta audio.
     </audio>
