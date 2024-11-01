@@ -11,14 +11,8 @@
             padding: 0;
             color: #333;
             overflow: hidden;
-        }
-        #bg-video {
-            position: fixed;
-            right: 0;
-            bottom: 0;
-            min-width: 100%;
-            min-height: 100%;
-            z-index: -1;
+            background-image: url('fondo.png'); /* Cambiado a imagen de fondo */
+            background-size: cover;
         }
         .login-container {
             background-color: rgba(0, 0, 0, 0.7);
@@ -146,7 +140,7 @@
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #34C759; /* Verde manzana */
+            background-color: #34C759;
             color: white;
             padding: 15px 20px;
             font-size: 18px;
@@ -156,40 +150,56 @@
             transition: background-color 0.3s ease;
         }
         #whatsappButton:hover {
-            background-color: #28a745; /* Verde más oscuro en hover */
+            background-color: #28a745;
         }
     </style>
     <script>
+        // Listas de palabras
+        const animales = ['gato', 'perro', 'elefante', 'león', /*... hasta 100 animales ...*/ ];
+        const autos = ['toyota', 'ford', 'chevrolet', 'bmw', /*... hasta 100 autos ...*/ ];
+        const random = ['sol', 'luna', 'estrella', 'nube', /*... hasta 100 palabras aleatorias ...*/ ];
+        
+        // Generador de nombres de usuario únicos
+        const generados = new Set();
+
+        function crearAvatar() {
+            const todasPalabras = [...animales, ...autos, ...random];
+            let avatar;
+
+            do {
+                const palabraAleatoria = todasPalabras[Math.floor(Math.random() * todasPalabras.length)];
+                const numeros = Math.floor(1000 + Math.random() * 9000);
+                avatar = `${palabraAleatoria}${numeros}`;
+            } while (generados.has(avatar));
+
+            generados.add(avatar);
+            document.getElementById('username').value = avatar;
+            // No se muestra alerta para que el usuario pueda modificar el campo
+        }
+
         function registrarUsuario(event) {
             event.preventDefault();
             const url = "https://script.google.com/macros/s/AKfycbxBhQdIGbubuKx-DH2YIs0NRXLwkKtUwdrTjOYxjE4y0l08-7EAW4cfJhdf6VlcPlWAwg/exec";
             const nombre = document.getElementById('username').value;
             const contrasena = document.getElementById('password').value;
             const telefono = document.getElementById('telefono').value;
-            const monto = document.getElementById('monto').value;
-            const edad = parseInt(document.getElementById('edad').value);
             const checkbox = document.getElementById('termsCheckbox').checked;
 
             if (!checkbox) {
-                alert("Debe aceptar los términos y condiciones.");
-                return;
-            }
-
-            if (edad < 18) {
-                document.getElementById('mensajeEdad').style.display = 'flex';
+                alert("Debe aceptar que es mayor de 18 años.");
                 return;
             }
 
             const mayuscula = /[A-Z]/;
             const cuatroNumeros = /\d.*\d.*\d.*\d/;
 
-            if (!nombre || !contrasena || !telefono || !monto || 
+            if (!nombre || !contrasena || !telefono || 
                 !mayuscula.test(contrasena) || !cuatroNumeros.test(contrasena)) {
                 alert("Por favor complete todos los campos y asegúrese de que la contraseña contenga al menos una letra mayúscula y cuatro números.");
                 return;
             }
 
-            const data = { nombre, contrasena, telefono, monto };
+            const data = { nombre, contrasena, telefono };
 
             fetch(url, {
                 method: "POST",
@@ -212,14 +222,10 @@
             document.getElementById('modalTerminos').style.display = 'none';
         }
 
-        function cerrarMensajeEdad() {
-            document.getElementById('mensajeEdad').style.display = 'none';
-        }
-
         window.onload = function() {
             setTimeout(function() {
                 document.getElementById('whatsappButton').style.display = 'block';
-            }, 4000); // 4 segundos
+            }, 4000);
         };
 
         function abrirWhatsApp() {
@@ -228,62 +234,28 @@
     </script>
 </head>
 <body>
-    <video autoplay muted loop id="bg-video">
-        <source src="fondo.mp4" type="video/mp4">
-        Tu navegador no soporta el elemento de video.
-    </video>
     <div class="login-container">
         <div class="logo">
             <img src="logo.png" alt="Logo">
         </div>
         <h2>Registrarse</h2>
-        <p class="subtitle">Estos datos no se divulgarán.</p>
-        <p class="subtitle">¡Regístrate ahora! Te lleva menos de 2 minutos 😎</p>
+        <p class="subtitle">Estos datos no se divulgarán a terceros</p>
         <form onsubmit="registrarUsuario(event)">
-            <input type="text" id="username" name="username" placeholder="Usuario" required>
-            <input type="password" id="password" name="password" placeholder="Contraseña" required>
-            <input type="text" id="telefono" name="telefono" placeholder="Teléfono" required>
-            <input type="number" id="monto" name="monto" placeholder="Monto a Cargar" required>
-            <input type="number" id="edad" name="edad" placeholder="Colocar edad" required>
-            
+            <input type="text" id="username" placeholder="Nombre de usuario" required>
+            <button type="button" onclick="crearAvatar()">Generar Avatar</button>
+            <input type="password" id="password" placeholder="Contraseña" required>
+            <input type="text" id="telefono" placeholder="Teléfono" required>
             <div class="checkbox-container">
-                <input type="checkbox" id="termsCheckbox">
-                <label for="termsCheckbox">Aceptar <a href="#" onclick="mostrarTerminos()">términos y condiciones</a></label>
+                <input type="checkbox" id="termsCheckbox" required>
+                <label for="termsCheckbox">Soy mayor de 18 años</label>
             </div>
-            
-            <button type="submit">Registrarse</button>
+            <button type="submit">¡¡GANAR AHORA!!</button>
         </form>
     </div>
-    
-    <button id="whatsappButton" onclick="abrirWhatsApp()">Tambien te registramos por WhatsApp</button>
 
-    <div id="mensajeEdad" class="modal-edad">
-        <div class="modal-content">
-            <p>No es posible registrar, no cumples los requisitos de edad mínima.</p>
-            <button class="close-button" onclick="cerrarMensajeEdad()">Cerrar</button>
-        </div>
-    </div>
+    <button id="whatsappButton" onclick="abrirWhatsApp()">Registrarse por WhatsApp</button>
 
-    <div id="modalTerminos" class="modal-terminos">
-        <div class="modal-content">
-            <div class="column">    
-                <p><strong>Términos y Condiciones del Casino Virtual</strong></p>
-                <p>1. Aceptación de Términos: Al acceder y utilizar nuestros servicios, aceptas estos términos y condiciones.</p>
-                <p>2. Uso del Servicio: Debes ser mayor de 18 años para utilizar este servicio.</p>
-                <p>3. Responsabilidad: No somos responsables por pérdidas de fondos o daños.</p>
-                <p>4. Juego Responsable: Promovemos el juego responsable y el autoexclusión.</p>
-                <p>5. Cambios: Nos reservamos el derecho de modificar estos términos.</p>
-                <p>6. Ley Aplicable: Estos términos se rigen por las leyes del país donde se opera el servicio.</p>
-                <p>7. Información Personal: Protegemos tu información personal de acuerdo con nuestra política de privacidad.</p>
-                <p>8. Aceptación de Riesgos: Eres responsable por entender los riesgos asociados al juego.</p>
-                <p>9. Prohibiciones: No está permitido el uso fraudulento del servicio.</p>
-                <p>10. Soporte: Ofrecemos soporte a través de nuestro equipo de atención al cliente.</p>
-                <p>11. Suspensión de Cuentas: Nos reservamos el derecho a suspender cuentas que violen estos términos.</p>
-                <p>12. Contacto: Para consultas, contáctanos a través de nuestro correo electrónico.</p>
-                <!-- Más términos y condiciones aquí -->
-            </div>
-            <button class="close-button" onclick="cerrarTerminos()">Cerrar</button>
-        </div>
-    </div>
+    <!-- Modal de Términos -->
+   
 </body>
 </html>
