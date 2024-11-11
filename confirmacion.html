@@ -3,259 +3,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmación</title>
+    <title>MAX WIN - Confirmación</title>
     <style>
+        /* Estilos generales */
+        @font-face {
+            font-family: 'Carnevalee Freakshow';
+            src: url('CarnevaleeFreakshow.woff2') format('woff2');
+        }
+
         body {
-            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
             overflow: hidden;
-            height: 100vh; /* Asegura que el cuerpo ocupa toda la altura */
-            position: relative;
-        }
-
-        #bg-video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%; /* Video ocupa toda la pantalla */
-            height: 100%; /* Video ocupa toda la pantalla */
-            z-index: -1;
-            object-fit: cover; /* Asegura que el video cubra el área definida */
-        }
-
-        .confirmation-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro detrás del contenido */
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-            width: 90%;
-            max-width: 350px;
-            text-align: center;
-            z-index: 1;
-            position: relative;
-            margin: auto;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .top-bar {
-            background-color: #000;
+            font-family: Arial, sans-serif;
             color: #fff;
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 10;
+            background: #000;
         }
 
-        .top-bar .slogan {
-            font-family: 'DRAGON HUNTER', sans-serif;
-            font-size: 24px;
-            font-weight: bold;
-            color: #ffe66d;
-            margin: 0 20px;
-            text-align: center;
-            flex: 1;
-            min-width: 150px;
-        }
-
-        .menu-bar {
-            background-color: #000;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between; /* Espacio entre el logo y el enlace */
-            position: fixed;
-            width: 100%;
-            top: 50px;
-            z-index: 9;
-        }
-
-        .menu-bar img {
-            height: 40px;
-            margin-right: 20px; /* Espacio entre el logo y el texto */
-        }
-
-        .menu-bar a {
-            color: #fff;
-            text-decoration: none;
-            cursor: pointer;
-            margin-left: auto; /* Empuja el enlace a la derecha */
-            margin-left: 64px; /* Aumenta el espacio a la derecha */
-        }
-
-        .client-data {
-            margin-top: 20px;
-            font-size: 16px;
-            text-align: center;
-        }
-
-        .client-data button {
-            margin: 10px 0;
-            padding: 10px 20px;
-            background-color: white;
-            border: none;
-            border-radius: 30px;
-            color: black;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        .client-data button:hover {
-            background-color: #f0f0f0;
-        }
-
-        .overlay {
-            display: none;
+        /* Estilos del video de fondo */
+        #background-video {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 15;
+            object-fit: cover;
+            z-index: -1;
         }
 
-        .how-to-box {
-            display: none;
-            background-color: rgba(0, 0, 0, 0.9);
-            color: #fff;
+        /* Contenedor central */
+        .center-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            width: 80%;
+            max-width: 400px;
             padding: 30px;
+            text-align: center;
             border-radius: 20px;
-            position: fixed;
+            background-color: rgba(0, 0, 0, 0.7);
+            position: relative;
+            animation: borderGlow 1s infinite alternate;
+            height: 300px;
+        }
+
+        /* Efecto de borde brillante */
+        @keyframes borderGlow {
+            0% { box-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000, 0 0 45px #ff0000; }
+            33% { box-shadow: 0 0 15px #00ff00, 0 0 30px #00ff00, 0 0 45px #00ff00; }
+            66% { box-shadow: 0 0 15px #0000ff, 0 0 30px #0000ff, 0 0 45px #0000ff; }
+            100% { box-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000, 0 0 45px #ff0000; }
+        }
+
+        /* Estilos del título */
+        .center-box h1 {
+            font-family: 'Carnevalee Freakshow', sans-serif;
+            font-size: 36px;
+            margin: 0;
+        }
+
+        /* Estilos del subtítulo */
+        .center-box p {
+            font-family: 'Carnevalee Freakshow', sans-serif;
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        /* === removing default button style ===*/
+        .button {
+            margin: 0;
+            height: auto;
+            background: transparent;
+            padding: 0;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* button styling */
+        .button {
+            --border-right: 6px;
+            --text-stroke-color: rgba(255,255,255,0.6);
+            --animation-color: #37FF8B;
+            --fs-size: 2em;
+            letter-spacing: 3px;
+            text-decoration: none;
+            font-size: var(--fs-size);
+            font-family: "Arial";
+            position: relative;
+            text-transform: uppercase;
+            color: transparent;
+            -webkit-text-stroke: 1px var(--text-stroke-color);
+        }
+
+        /* this is the text, when you hover on button */
+        .hover-text {
+            position: absolute;
+            box-sizing: border-box;
+            content: attr(data-text);
+            color: var(--animation-color);
+            width: 0%;
+            inset: 0;
+            border-right: var(--border-right) solid var(--animation-color);
+            overflow: hidden;
+            transition: 0.5s;
+            -webkit-text-stroke: 1px var(--animation-color);
+        }
+
+        /* hover */
+        .button:hover .hover-text {
+            width: 100%;
+            filter: drop-shadow(0 0 23px var(--animation-color))
+        }
+
+        /* Estilos del botón */
+        .container-button {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            grid-template-areas: "bt-1 bt-2 bt-3"
+                                 "bt-4 bt-5 bt-6";
+            position: relative;
+            perspective: 800;
+            padding: 0;
+            width: 135px;
+            height: 47px;
+            transition: all 0.3s ease-in-out;
+            margin-top: 20px;
+        }
+
+        .container-button:active {
+            transform: scale(0.95);
+        }
+
+        .hover {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 200;
+        }
+
+        .bt-1 { grid-area: bt-1; }
+        .bt-2 { grid-area: bt-2; }
+        .bt-3 { grid-area: bt-3; }
+        .bt-4 { grid-area: bt-4; }
+        .bt-5 { grid-area: bt-5; }
+        .bt-6 { grid-area: bt-6; }
+
+        /* Efectos de rotación del botón */
+        .bt-1:hover ~ button { transform: rotateX(15deg) rotateY(-15deg); box-shadow: -2px -2px #18181888; }
+        .bt-3:hover ~ button { transform: rotateX(15deg) rotateY(15deg); box-shadow: 2px -2px #18181888; }
+        .bt-4:hover ~ button { transform: rotateX(-15deg) rotateY(-15deg); box-shadow: -2px 2px #18181888; }
+        .bt-6:hover ~ button { transform: rotateX(-15deg) rotateY(15deg); box-shadow: 2px 2px #18181888; }
+
+        .hover:hover ~ button::before {
+            background: transparent;
+        }
+
+        .hover:hover ~ button::after {
+            content: "Click";
+            top: -150%;
+            transform: translate(-50%, 0);
+            font-size: 34px;
+            color: #f19c2b;
+        }
+
+        /* Estilos del botón */
+        button {
+            position: absolute;
+            padding: 0;
+            width: 135px;
+            height: 47px;
+            background: transparent;
+            font-size: 17px;
+            font-weight: 900;
+            border: 3px solid #f39923;
+            border-radius: 12px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        button::before {
+            content: "";
+            position: absolute;
             top: 50%;
             left: 50%;
-            width: 80%;
-            max-width: 600px;
             transform: translate(-50%, -50%);
-            z-index: 20;
-            text-align: left;
+            width: 135px;
+            height: 47px;
+            background-color: #f5ae51;
+            border-radius: 12px;
+            transition: all 0.3s ease-in-out;
+            z-index: -1;
         }
 
-        /* Estilos para el título y subtítulo */
-        .confirmation-title {
-            font-family: 'DRAGON HUNTER', sans-serif;
-            font-size: 36px;
-            color: red;
-            margin: 10px 0;
-        }
-
-        .confirmation-subtitle {
-            font-family: 'DRAGON HUNTER', sans-serif;
-            font-size: 24px;
-            color: red;
-            margin: 10px 0;
-        }
-
-        @media (max-width: 600px) {
-            .top-bar .slogan {
-                font-size: 20px;
-            }
-
-            .confirmation-container {
-                padding: 10px;
-            }
-
-            .client-data {
-                font-size: 14px;
-            }
-
-            .client-data button {
-                font-size: 14px;
-            }
+        button::after {
+            content: "Recarga Aquí";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 135px;
+            height: 47px;
+            background-color: transparent;
+            font-size: 17px;
+            font-weight: 900;
+            line-height: 47px;
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            transition: all 0.3s ease-in-out;
+            z-index: 2;
         }
     </style>
-    <script>
-        function irARecarga() {
-            const nombre = document.getElementById('nombreCliente').innerText;
-            const telefono = document.getElementById('telefonoCliente').innerText;
-            const contraseña = document.getElementById('contraseñaCliente').innerText;
-
-            const textoCompleto = `Nombre: ${nombre}\nTeléfono: ${telefono}\nContraseña: ${contraseña}`;
-            navigator.clipboard.writeText(textoCompleto).then(() => {
-                // Redirigir a la página de recarga
-                window.location.href = 'recarga24hs.html';
-            }).catch(err => {
-                // Redirigir a la página de recarga incluso si hay un error
-                window.location.href = 'recarga24hs.html';
-            });
-        }
-
-        function mostrarInstrucciones() {
-            document.querySelector(".overlay").style.display = "block";
-            document.querySelector(".how-to-box").classList.add('show');
-        }
-
-        function cerrarInstrucciones() {
-            document.querySelector(".overlay").style.display = "none";
-            document.querySelector(".how-to-box").classList.remove('show');
-        }
-
-        function recibirDatosDesdeLogin() {
-            const urlParams = new URLSearchParams(window.location.search);
-            document.getElementById('nombreCliente').innerText = urlParams.get('nombre') || 'No especificado';
-            document.getElementById('telefonoCliente').innerText = urlParams.get('telefono') || 'No especificado';
-            document.getElementById('contraseñaCliente').innerText = urlParams.get('contrasena') || 'No especificado';
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            recibirDatosDesdeLogin();
-            
-            // Reproducir audio al cargar la página
-            const audio = document.getElementById('bg-audio');
-            audio.play().catch(error => {
-                console.log("El audio no se pudo reproducir automáticamente:", error);
-            });
-        });
-    </script>
 </head>
 <body>
-    <video id="bg-video" autoplay muted loop>
+    <!-- Video de fondo -->
+    <video id="background-video" autoplay loop muted>
         <source src="slot.mp4" type="video/mp4">
-        Tu navegador no soporta videos.
     </video>
 
-    <audio id="bg-audio" loop>
-        <source src="slot.mp3" type="audio/mpeg">
-        Tu navegador no soporta audio.
-    </audio>
+    <!-- Contenedor central -->
+    <div class="center-box">
+        <h1>MAX WIN</h1>
+        <p>20% de bonus en tu primera recarga</p>
 
-    <div class="top-bar">
-        <div class="slogan">CON ZEUS ES GANANCIA</div>
-    </div>
-
-    <div class="menu-bar">
-        <img src="logo.png" alt="Logo">
-        <a href="#" onclick="mostrarInstrucciones()" style="margin-left: 64px;">Cómo cargar fichas</a>
-    </div>
-
-    <div class="confirmation-container">
-        <h1 class="confirmation-title">MAX WIN</h1>
-        <p class="confirmation-subtitle">15% BONUS EN TU PRIMERA RECARGA</p>
-        <div class="client-data">
-            <p id="nombreCliente">Nombre: No especificado</p>
-            <p id="telefonoCliente">Teléfono: No especificado</p>
-            <p id="contraseñaCliente">Contraseña: No especificado</p>
-            <button onclick="irARecarga()">Recarga aquí las 24Hs</button>
-            <p style="font-size: 16px;">Tus datos de registro se copiaron en el portapapeles, envíaselo a nuestr@ cajer@</p>
+        <!-- Botón de recarga con efectos -->
+        <div class="container-button">
+            <div class="hover bt-1"></div>
+            <div class="hover bt-2"></div>
+            <div class="hover bt-3"></div>
+            <div class="hover bt-4"></div>
+            <div class="hover bt-5"></div>
+            <div class="hover bt-6"></div>
+            <!-- Redirige a la página recarga24hs.html con la animación -->
+            <button onclick="window.location.href='recarga24hs.html'"></button>
         </div>
     </div>
 
-    <div class="overlay" onclick="cerrarInstrucciones()"></div>
-
-    <div class="how-to-box">
-        <h2>Instrucciones</h2>
-        <p>Aquí están las instrucciones sobre cómo cargar fichas...</p>
-        <button onclick="cerrarInstrucciones()">Cerrar</button>
-    </div>
+    <script>
+        document.querySelector('button').addEventListener('click', function() {
+            // Asegura que la redirección se realice al hacer clic en el botón
+            window.location.href = 'recarga24hs.html';
+        });
+    </script>
 </body>
 </html>
