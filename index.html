@@ -6,336 +6,244 @@
     <title>Registrarse</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Carnevalee Freakshow', sans-serif;
             margin: 0;
             padding: 0;
-            color: #333;
+            color: #fff;
             overflow: hidden;
-            position: relative;
             height: 100vh;
+            background: url('fondo.png') no-repeat center center fixed;
+            background-size: cover;
+            image-rendering: high-quality;
+            filter: brightness(1.2) contrast(1.1);
         }
-        video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: -1; /* Asegúrate de que el video esté detrás de otros elementos */
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-            max-width: 100%;
-            max-height: 100%;
-        }
-        .scroll-bar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 120px; /* Aumentar el ancho de la barra lateral */
-            height: 100vh;
-            background-color: rgba(0, 0, 0, 0.6);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow: hidden;
-            z-index: 10;
-            border-top-right-radius: 20px; /* Bordes redondeados en la parte superior derecha */
-            border-bottom-right-radius: 20px; /* Bordes redondeados en la parte inferior derecha */
-        }
-        .scroll-images {
-            display: flex;
-            flex-direction: column;
-            animation: scroll 20s linear infinite;
-        }
-        .scroll-images img {
-            width: 128px; /* Aumentar el tamaño de las imágenes */
-            height: 128px; /* Aumentar el tamaño de las imágenes */
-            margin: 15px 0;
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
-            border-radius: 10px; /* Bordes redondeados en las imágenes */
-        }
-        .scroll-images img:hover {
-            opacity: 1;
-        }
-        @keyframes scroll {
-            0% {
-                transform: translateY(0);
-            }
-            100% {
-                transform: translateY(-100%);
-            }
-        }
+
         .login-container {
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.8);
             padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             width: 90%;
             max-width: 400px;
             text-align: center;
-            animation: fadeIn 1s ease-in-out;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            animation: borderLights 0.5s infinite;
+            z-index: 1;
         }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translate(-50%, -70%);
-            }
-            to {
-                opacity: 1;
-                transform: translate(-50%, -50%);
-            }
+
+        @keyframes borderLights {
+            0% { box-shadow: 0 0 5px #ff0000, 0 0 15px #ff0000, 0 0 30px #ff0000; }
+            25% { box-shadow: 0 0 5px #00ff00, 0 0 15px #00ff00, 0 0 30px #00ff00; }
+            50% { box-shadow: 0 0 5px #0000ff, 0 0 15px #0000ff, 0 0 30px #0000ff; }
+            75% { box-shadow: 0 0 5px #ffff00, 0 0 15px #ffff00, 0 0 30px #ffff00; }
+            100% { box-shadow: 0 0 5px #ff00ff, 0 0 15px #ff00ff, 0 0 30px #ff00ff; }
         }
+
         .logo img {
-            width: 100px;
+            width: 120px;
             height: auto;
             margin-bottom: 20px;
         }
+
         .login-container h2 {
             margin-bottom: 10px;
             color: #fff;
             font-size: 28px;
             font-weight: bold;
         }
+
         .login-container p.subtitle {
             margin-top: -10px;
             margin-bottom: 20px;
             color: #bbb;
             font-size: 14px;
         }
-        .login-container button {
-            width: 100%;
-            padding: 15px;
-            background-color: #ff6b6b;
-            border: none;
-            border-radius: 30px;
-            color: #fff;
-            font-size: 18px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 10px;
-        }
-        .login-container button:hover {
-            background-color: #ff4f4f;
-        }
-        .checkbox-container {
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-            color: #ccc;
-            margin-top: 10px;
-        }
+
         .form-control {
             position: relative;
-            margin: 20px 0 40px;
+            margin: 15px 0 20px;
             width: 100%;
         }
-        .form-control input {
-            background-color: transparent;
-            border: 0;
-            border-bottom: 2px #fff solid;
-            display: block;
-            width: 100%;
-            padding: 15px 0;
-            font-size: 18px;
-            color: #fff;
-            transition: 0.3s ease;
-        }
-        .form-control input:focus,
-        .form-control input:valid {
-            outline: 0;
-            border-bottom-color: lightblue;
-        }
-        .form-control label {
-            position: absolute;
-            top: 15px;
-            left: 0;
-            pointer-events: none;
-            transition: 0.3s ease;
-        }
-        .form-control label span {
-            display: inline-block;
-            font-size: 18px;
-            min-width: 5px;
-            color: #fff;
-            transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-        .form-control input:focus+label span,
-        .form-control input:valid+label span {
-            color: lightblue;
-            transform: translateY(-30px);
-            font-size: 14px; /* Hacemos la fuente más pequeña al enfocarse */
-        }
-        #whatsappButton {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #34C759;
-            color: white;
-            padding: 15px 20px;
-            font-size: 18px;
+
+        .input {
             border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+            outline: none;
+            border-radius: 20px;
+            padding: 1em;
+            background-color: #ccc;
+            box-shadow: inset 2px 5px 10px rgba(0, 0, 0, 0.3);
+            transition: 300ms ease-in-out;
+            width: 100%;
+            font-size: 14px;
+            text-align: center;
         }
-        #whatsappButton:hover {
-            background-color: #28a745;
+
+        .input:focus {
+            background-color: white;
+            transform: scale(1.05);
+            box-shadow: 13px 13px 100px #969696, -13px -13px 100px #ffffff;
+        }
+
+        .input::placeholder {
+            text-align: center;
+        }
+
+        button {
+            --glow-color: rgb(217, 176, 255);
+            --glow-spread-color: rgba(191, 123, 255, 0.781);
+            --enhanced-glow-color: rgb(231, 206, 255);
+            --btn-color: rgb(100, 61, 136);
+            border: .25em solid var(--glow-color);
+            padding: 1em 3em;
+            color: var(--glow-color);
+            font-size: 15px;
+            font-weight: bold;
+            background-color: var(--btn-color);
+            border-radius: 1em;
+            outline: none;
+            box-shadow: 0 0 1em .25em var(--glow-color),
+                        0 0 4em 1em var(--glow-spread-color),
+                        inset 0 0 .75em .25em var(--glow-color);
+            text-shadow: 0 0 .5em var(--glow-color);
+            position: relative;
+            transition: all 0.3s;
+            margin-top: 15px;
+        }
+
+        button::after {
+            pointer-events: none;
+            content: "";
+            position: absolute;
+            top: 120%;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: var(--glow-spread-color);
+            filter: blur(2em);
+            opacity: .7;
+            transform: perspective(1.5em) rotateX(35deg) scale(1, .6);
+        }
+
+        button:hover {
+            color: var(--btn-color);
+            background-color: var(--glow-color);
+            box-shadow: 0 0 1em .25em var(--glow-color),
+                        0 0 4em 2em var(--glow-spread-color),
+                        inset 0 0 .75em .25em var(--glow-color);
+        }
+
+        button:active {
+            box-shadow: 0 0 0.6em .25em var(--glow-color),
+                        0 0 2.5em 2em var(--glow-spread-color),
+                        inset 0 0 .5em .25em var(--glow-color);
         }
     </style>
-    <script>
-        const animales = ['gato', 'perro', 'elefante', 'león'];
-        const autos = ['toyota', 'ford', 'chevrolet', 'bmw'];
-        const random = ['sol', 'luna', 'estrella', 'nube'];
-        const generados = new Set();
-
-        function crearAvatar() {
-            const todasPalabras = [...animales, ...autos, ...random];
-            let avatar;
-            do {
-                const palabraAleatoria = todasPalabras[Math.floor(Math.random() * todasPalabras.length)];
-                const numeros = Math.floor(1000 + Math.random() * 9000);
-                avatar = `${palabraAleatoria}${numeros}`;
-            } while (generados.has(avatar));
-            generados.add(avatar);
-            document.getElementById('username').value = avatar;
-        }
-
-        function registrarUsuario(event) {
-            event.preventDefault();
-            const url = "https://script.google.com/macros/s/AKfycbxBhQdIGbubuKx-DH2YIs0NRXLwkKtUwdrTjOYxjE4y0l08-7EAW4cfJhdf6VlcPlWAwg/exec";
-            const nombre = document.getElementById('username').value;
-            const contrasena = document.getElementById('password').value;
-            const telefono = document.getElementById('telefono').value;
-            const checkbox = document.getElementById('termsCheckbox').checked;
-
-            if (!checkbox) {
-                alert("Debe aceptar que es mayor de 18 años.");
-                return;
-            }
-
-            const mayuscula = /[A-Z]/;
-            const cuatroNumeros = /\d.*\d.*\d.*\d/;
-
-            if (!nombre || !contrasena || !telefono || 
-                !mayuscula.test(contrasena) || !cuatroNumeros.test(contrasena)) {
-                alert("Por favor complete todos los campos y asegúrese de que la contraseña contenga al menos una letra mayúscula y cuatro números.");
-                return;
-            }
-
-            const data = { nombre, contrasena, telefono };
-
-            fetch(url, {
-                method: "POST",
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            }).then(() => {
-                const params = new URLSearchParams(data).toString();
-                window.location.href = `confirmacion.html?${params}`;
-            }).catch(error => {
-                console.error("Error al registrar el usuario:", error);
-            });
-        }
-
-        window.onload = function() {
-            const video = document.getElementById('backgroundVideo');
-            video.playbackRate = 3; // Ajusta la velocidad de reproducción del video a 3x
-            const whatsappButton = document.getElementById('whatsappButton');
-            setTimeout(() => {
-                whatsappButton.style.display = 'block';
-            }, 10000); // Muestra el botón después de 10 segundos
-        };
-    </script>
 </head>
 <body>
-    <audio autoplay loop>
-        <source src="slot.mp3" type="audio/mp3">
-        Tu navegador no soporta el elemento de audio.
-    </audio>
-    <video id="backgroundVideo" autoplay muted loop>
-        <source src="fondo.mp4" type="video/mp4">
-        Tu navegador no soporta el elemento de video.
-    </video>
-    <div class="scroll-bar">
-        <div class="scroll-images">
-            <img src="slot.png" alt="slot 1">
-            <img src="poker.png" alt="poker 2">
-            <img src="21.png" alt="21 3">
-            <img src="globo.png" alt="globo 4">
-            <img src="bruja.png" alt="bruja 5">
-            <img src="ruleta.png" alt="ruleta 5">
-            <img src="parciano.png" alt="parciano 5">
-            <img src="penatli.png" alt="penatli 5">
-            <img src="slot.png" alt="slot 1">
-            <img src="poker.png" alt="poker 2">
-            <img src="21.png" alt="21 3">
-            <img src="globo.png" alt="globo 4">
-            <img src="bruja.png" alt="bruja 5">
-            <img src="ruleta.png" alt="ruleta 5">
-            <img src="parciano.png" alt="parciano 5">
-            <img src="penatli.png" alt="penatli 5">
-            <img src="slot.png" alt="slot 1">
-            <img src="poker.png" alt="poker 2">
-            <img src="21.png" alt="21 3">
-            <img src="globo.png" alt="globo 4">
-            <img src="bruja.png" alt="bruja 5">
-            <img src="ruleta.png" alt="ruleta 5">
-            <img src="parciano.png" alt="parciano 5">
-            <img src="penatli.png" alt="penatli 5">
-            <img src="slot.png" alt="slot 1">
-            <img src="poker.png" alt="poker 2">
-            <img src="21.png" alt="21 3">
-            <img src="globo.png" alt="globo 4">
-            <img src="bruja.png" alt="bruja 5">
-            <img src="ruleta.png" alt="ruleta 5">
-            <img src="parciano.png" alt="parciano 5">
-            <img src="penatli.png" alt="penatli 5">
-            <img src="slot.png" alt="slot 1">
-            <img src="poker.png" alt="poker 2">
-            <img src="21.png" alt="21 3">
-            <img src="globo.png" alt="globo 4">
-            <img src="bruja.png" alt="bruja 5">
-            <img src="ruleta.png" alt="ruleta 5">
-            <img src="parciano.png" alt="parciano 5">
-            <img src="penatli.png" alt="penatli 5">
 
-        </div>
-    </div>
     <div class="login-container">
         <div class="logo">
             <img src="logo.png" alt="Logo">
         </div>
         <h2>Registrarse</h2>
-        <p class="subtitle">¡Únete a la diversión!</p>
-        <button type="button" onclick="crearAvatar()">Generar Avatar</button>
+        <p class="subtitle">Registrate ahora en menos de 1 minuto</p>
+        <p class="subtitle">Estos datos no se divulgarán</p>
+
         <form onsubmit="registrarUsuario(event)">
+            <!-- Botón para generar avatar -->
+            <button type="button" onclick="generarAvatar()">Generar Avatar</button>
+
+            <!-- Campo de Nombre de Usuario -->
             <div class="form-control">
-                <input type="text" id="username" required>
-                <label for="username"><span>Nombre de usuario</span></label>
+                <input type="text" id="username" class="input" placeholder="Nombre de usuario" required>
             </div>
+
             <div class="form-control">
-                <input type="password" id="password" required>
-                <label for="password"><span>Contraseña</span></label>
+                <input type="password" id="password" class="input" placeholder="Contraseña" required>
             </div>
+
             <div class="form-control">
-                <input type="text" id="telefono" required>
-                <label for="telefono"><span>Teléfono</span></label>
+                <input type="text" id="telefono" class="input" placeholder="Teléfono" required>
             </div>
+
             <div class="checkbox-container">
                 <input type="checkbox" id="termsCheckbox">
                 <label for="termsCheckbox">Confirmo que tengo más de 18 años.</label>
             </div>
+
             <button type="submit">Registrarse</button>
         </form>
     </div>
-    <button id="whatsappButton" onclick="window.open('https://wa.me/1234567890', '_blank')">Contactar por WhatsApp</button>
+
+    <script>
+        const animales = ["Perro", "Gato", "Elefante", "León", "Tigre", "Delfín", "Cebra", "Águila"];
+        const autos = ["Ferrari", "BMW", "Audi", "Tesla", "Lamborghini", "Porsche", "Mustang"];
+        const randomWords = ["Estrella", "Galaxia", "Nube", "Rayo", "Fuego", "Viento", "Tierra", "Cometa"];
+
+        function generarAvatar() {
+            const randomAnimal = animales[Math.floor(Math.random() * animales.length)];
+            const randomCar = autos[Math.floor(Math.random() * autos.length)];
+            const randomWord = randomWords[Math.floor(Math.random() * randomWords.length)];
+            const randomNumbers = generateUniqueNumbers();
+            const avatar = `${randomAnimal}${randomNumbers.join('')}`;
+            document.getElementById('username').value = avatar;
+        }
+
+        function generateUniqueNumbers() {
+            let numbers = [];
+            while (numbers.length < 4) {
+                let num = Math.floor(Math.random() * 10);
+                if (!numbers.includes(num)) {
+                    numbers.push(num);
+                }
+            }
+            return numbers;
+        }
+
+        async function registrarUsuario(event) {
+            event.preventDefault();
+
+            if (!validarFormulario()) {
+                return;
+            }
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const telefono = document.getElementById('telefono').value;
+
+            localStorage.setItem('username', username);
+            localStorage.setItem('password', password);
+            localStorage.setItem('telefono', telefono);
+
+            // Copiar datos al portapapeles
+            const datos = `Avatar: ${username}\nTeléfono: ${telefono}\nContraseña: ${password}`;
+            try {
+                await navigator.clipboard.writeText(datos);
+                console.log("Datos copiados al portapapeles.");
+            } catch (err) {
+                console.error("Error al copiar al portapapeles:", err);
+            }
+
+            // Redirigir a la página de confirmación
+            window.location.href = "confirmacion.html";
+        }
+
+        function validarFormulario() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const telefono = document.getElementById('telefono').value;
+            const termsCheckbox = document.getElementById('termsCheckbox').checked;
+
+            if (!username || !password || !telefono || !termsCheckbox) {
+                alert("Por favor, complete todos los campos y acepte que es mayor de 18 años.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+
 </body>
 </html>
